@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'Login',
+    'Shop',
 ]
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
