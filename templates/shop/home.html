@@ -19,19 +19,19 @@
                     }'>
 
 
-            {% for banner in banners %}
 
-                    <div class="intro-slide" style="background-image: url({{banner.image.url}});">
+
+                    <div class="intro-slide" style="background-image: url();">
                         <div class="container intro-content">
                             <div class="row justify-content-end">
                                 <div class="col-auto col-sm-7 col-md-6 col-lg-5">
                                     <h3 class="intro-subtitle text-primary">New Arrival</h3><!-- End .h3 intro-subtitle -->
-                                    <h1 class="intro-title"> {{banner.product.name}} </h1><!-- End .intro-title -->
+                                    <h1 class="intro-title">  </h1><!-- End .intro-title -->
 
                                     <div class="intro-price">
                                         <sup>Today:</sup>
                                         <span class="text-primary">
-                                            ${{banner.product.price}}
+
                                         </span>
                                     </div><!-- End .intro-price -->
 
@@ -44,7 +44,7 @@
                         </div><!-- End .intro-content -->
                     </div><!-- End .intro-slide -->
 
-                {% endfor %}
+
 
                 </div><!-- End .intro-slider owl-carousel owl-simple -->
 
@@ -146,7 +146,7 @@
 
 
 
-                        {% for product in products %}
+
 
                             <div class="product product-2">
                                 <figure class="product-media">
@@ -166,17 +166,17 @@
 
                                 <div class="product-body">
                                     <div class="product-cat">
-                                        <a href="#">{{product.category}}</a>
+                                        <a href="#"></a>
                                     </div><!-- End .product-cat -->
-                                    <h3 class="product-title"><a href="{{product.get_product_url}}">{{product.name}}</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="{{product.get_product_url}}"></a></h3><!-- End .product-title -->
                                     <div class="product-price">
-                                        ${{product.price}}
+
                                     </div>
-                                    {% if product.old_price %}
+
                                     <div class="product-price">
-                                        <del>${{product.old_price}}</del>
+                                        <del>$</del>
                                     </div>
-                                    {% endif %}
+
                                     <div class="ratings-container">
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
@@ -186,7 +186,7 @@
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
 
-                        {% endfor %}
+                      
 
 
 
