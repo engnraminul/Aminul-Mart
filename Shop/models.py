@@ -31,9 +31,9 @@ class Brand(models.Model):
 
 class Product(models.Model):
     product_name = models.CharField(max_length=264, blank=False, null=False)
-    Product_brand = models.ForeignKey('Brand', related_name='Product_brand', on_delete=models.CASCADE)
-    preview_text = models.TextField(max_length=75, blank=True, null=True)
-    product_description = models.TextField(max_length=1500, blank=True, null=True)
+    product_brand = models.ForeignKey('Brand', related_name='Product_brand', on_delete=models.CASCADE)
+    preview_text = models.TextField(max_length=200, blank=True, null=True)
+    product_description = models.TextField(max_length=2000, blank=True, null=True)
     product_image = models.ImageField(upload_to='products', blank=False, null=False)
     product_price = models.FloatField()
     product_old_price = models.FloatField(default=0.00, blank=True, null=True)

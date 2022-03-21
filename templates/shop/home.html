@@ -147,12 +147,12 @@
 
 
 
-
+                            {% for product in products %}
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <span class="product-label label-circle label-top">Top</span>
                                     <a href="product.html">
-                                        <img src="{{product.image.url}}" alt="Product image" class="product-image">
+                                        <img src="{{product.product_image.url}}" alt="Product image" class="product-image">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -166,17 +166,18 @@
 
                                 <div class="product-body">
                                     <div class="product-cat">
-                                        <a href="#"></a>
+                                        <a href="#">{{product.product_brand}}</a>
                                     </div><!-- End .product-cat -->
-                                    <h3 class="product-title"><a href="{{product.get_product_url}}"></a></h3><!-- End .product-title -->
+                                    <h3 class="product-title">{{product.product_name}}<a href="{{product.get_product_url}}"></a></h3><!-- End .product-title -->
                                     <div class="product-price">
+                                      ${{product.product_price}}
 
+                                    {% if product.product_old_price %}
+
+                                        <a>  |  </a><del>${{product.product_old_price}}</del>
+
+                                    {% endif %}
                                     </div>
-
-                                    <div class="product-price">
-                                        <del>$</del>
-                                    </div>
-
                                     <div class="ratings-container">
                                         <div class="ratings">
                                             <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
@@ -186,7 +187,7 @@
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
 
-                      
+                      {% endfor %}
 
 
 
