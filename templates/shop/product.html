@@ -40,11 +40,11 @@
                                         </figure><!-- End .product-main-image -->
 
                                         <div id="product-zoom-gallery" class="product-image-gallery">
-
-                                            <a class="product-gallery-item active" href="#" data-image="{{product_image.image.url}}" data-zoom-image="{{product_image.image.url}}">
-                                                <img src="{{product_image.image.url}}" alt="product side">
+                                            {% for product_gallery in gallery %}
+                                            <a class="product-gallery-item active" href="#" data-image="{{gallery_image.image.url}}" data-zoom-image="{{product_image.image.url}}">
+                                                <img src="{{product_gallery.gallery_image.url}}" alt="product side">
                                             </a>
-
+                                            {% endfor %}
 
                                         </div><!-- End .product-image-gallery -->
                                     </div><!-- End .row -->

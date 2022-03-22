@@ -57,3 +57,9 @@ class Product(models.Model):
 
     def product_url(self):
         return reverse('Shop:product_details', kwargs={'slug':self.slug})
+
+
+class ProductImageGallery(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    gallery_image = models.FileField(upload_to='Image_gallery')
+    gallery_created = models.DateTimeField(auto_now_add=True)
