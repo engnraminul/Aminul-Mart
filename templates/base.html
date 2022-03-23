@@ -6,6 +6,7 @@
 <head>
     {% load category %}
     {% load static %}
+    {% load cart_product %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,7 +44,7 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
+                        <a href="tel:#"><i class="icon-phone"></i>Call: +08801515649328</a>
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
@@ -152,58 +153,45 @@
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <div class="icon">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">2</span>
+                                    {% if request.user.is_authenticated %}
+                                    <span class="cart-count">{{request.user|cart_count}}</span>
+                                    {% endif %}
                                 </div>
                                 <p>Cart</p>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-cart-products">
+                                  {% if request.user.is_authenticated %}
+                                    {% for cart in request.user|cart_view %}
                                     <div class="product">
                                         <div class="product-cart-details">
                                             <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
+                                                <a href="product.html">{{cart.item.product_name}}</a>
                                             </h4>
 
                                             <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
+                                                <span class="cart-product-qty">{{cart.quantity}}</span>
+                                                x ${{cart.item.product_price}}
                                             </span>
                                         </div><!-- End .product-cart-details -->
 
                                         <figure class="product-image-container">
                                             <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                                <img src="{{cart.item.product_image}}" alt="product">
                                             </a>
                                         </figure>
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                     </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
+                                    {% endfor %}
+                                  {% endif %}
                                 </div><!-- End .cart-product -->
 
                                 <div class="dropdown-cart-total">
                                     <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
+                                    {% if request.user.is_authenticated %}
+                                    <span class="cart-total-price">${{request.user|cart_total}}</span>
+                                    {% endif %}
                                 </div><!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">

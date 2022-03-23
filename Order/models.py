@@ -17,7 +17,7 @@ class Cart(models.Model):
 
 
     def get_total_price(self):
-        total = self.item.price * self.quantity
+        total = self.item.product_price * self.quantity
         float_total_price = format(total, '0.2f')
         return float_total_price
 
