@@ -8,6 +8,8 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    variant = models.CharField(max_length=100, blank=True, null=True)
+    color = models.CharField(max_length=100, blank=True, null=True)
     purchased = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

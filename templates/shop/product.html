@@ -75,34 +75,36 @@
                                         <p>{{ product.preview_text }}</p>
                                     </div><!-- End .product-content -->
 
-                                <form method="post" action="">
+                                <form method="post" action="{% url 'Order:add-cart' pk=product.pk %}">
                                     {% csrf_token %}
-
+                                    {% if product.variationvalue_set.variants %}
                                     <div class="details-filter-row details-row-size">
-                                        <label for="size">Sizes:</label>
+                                        <label for="variant">Variants:</label>
                                         <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">Select a size</option>
-
-                                                <option name='size' value="{{item_variation.name}}"></option>
-
+                                            <select name="variant" id="variant" class="form-control">
+                                                <option value="#" selected="selected">Select a Variants</option>
+                                                {% for product_variation in product.variationvalue_set.variants %}
+                                                <option name='variant' value="{{product_variation.name}}">{{product_variation.name}}</option>
+                                                {% endfor %}
                                             </select>
                                         </div><!-- End .select-custom -->
                                     </div><!-- End .details-filter-row -->
+                                    {% endif %}
 
 
-
+                                    {% if product.variationvalue_set.colors %}
                                     <div class="details-filter-row details-row-size">
-                                        <label for="size">Colors:</label>
+                                        <label for="color">colors:</label>
                                         <div class="select-custom">
-                                            <select name="color" id="size" class="form-control">
-                                                <option value="#" selected="selected">Select a color</option>
-
-                                                <option name='color' value="{{item_variation.name}}">{{item_variation.name}}</option>
-
+                                            <select name="color" id="color" class="form-control">
+                                                <option value="#" selected="selected">Select a Colors</option>
+                                                {% for product_variation in product.variationvalue_set.colors %}
+                                                <option name='color' value="{{product_variation.name}}">{{product_variation.name}}</option>
+                                                {% endfor %}
                                             </select>
                                         </div><!-- End .select-custom -->
                                     </div><!-- End .details-filter-row -->
+                                    {% endif %}
 
 
                                     <div class="details-filter-row details-row-size">
@@ -113,7 +115,7 @@
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
-                                        <a href="{% url 'Order:add-cart' pk=product.pk %}" type="submit" class="btn-product btn-cart"><span>Add to Cart</span></a>
+                                        <button href="" type="submit" class="btn-product btn-cart"><span>Add to Cart</span></button>
 
                                         <div class="details-action-wrapper">
                                             <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>

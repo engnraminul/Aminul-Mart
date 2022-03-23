@@ -63,3 +63,29 @@ class ProductImageGallery(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     gallery_image = models.FileField(upload_to='Image_gallery')
     gallery_created = models.DateTimeField(auto_now_add=True)
+
+
+class VariationManager(models.Manager):
+    def variants(self):
+        return super(VariationManager, self).filter(variation='variant')
+
+    def colors(self):
+        return super(VariationManager, self).filter(variation='color')
+
+
+VARIATIONS_TYPE = (
+    ('variant', 'variant'),
+    ('color', 'color'),
+)
+
+class VariationValue(models.Model):
+    variation = models.CharField(max_length=100, choices=VARIATIONS_TYPE)
+    name = models.CharField(max_length=100)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    objects = VariationManager()
+
+    def __str__(self):
+        return self.name
