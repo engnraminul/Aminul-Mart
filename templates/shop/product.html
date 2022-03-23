@@ -113,7 +113,7 @@
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
-                                        <button type="submit" class="btn-product btn-cart">Add to cart</button>
+                                        <a href="{% url 'Order:add-cart' pk=product.pk %}" type="submit" class="btn-product btn-cart"><span>Add to Cart</span></a>
 
                                         <div class="details-action-wrapper">
                                             <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
