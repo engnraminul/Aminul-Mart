@@ -46,3 +46,19 @@ def cart_view(request):
             'order': order,
         }
         return render(request, 'Shop/cart.html', context)
+
+
+def remove_from_cart(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    orders = CartToOrder.objects.filter(user=request.user, ordered=False)
+    if orders.exists():
+        order = orders[0]
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchased=False)[0]
+            order.orderitems.remove(order_item)
+            order_item.delete()
+            return redirect('Order:cart')
+        else:
+            return redirect('Order:cart')
+    else:
+        return redirect('Order:cart')

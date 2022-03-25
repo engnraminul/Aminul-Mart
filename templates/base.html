@@ -155,6 +155,8 @@
                                     <i class="icon-shopping-cart"></i>
                                     {% if request.user.is_authenticated %}
                                     <span class="cart-count">{{request.user|cart_count}}</span>
+                                    {% else %}
+                                    <span class="cart-count">0</span>
                                     {% endif %}
                                 </div>
                                 <p>Cart</p>
@@ -163,6 +165,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-cart-products">
                                   {% if request.user.is_authenticated %}
+                                  {% if request.user|cart_view %}
                                     {% for cart in request.user|cart_view %}
                                     <div class="product">
                                         <div class="product-cart-details">
@@ -184,6 +187,7 @@
                                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                     </div><!-- End .product -->
                                     {% endfor %}
+                                    {% endif %}
                                   {% endif %}
                                 </div><!-- End .cart-product -->
 
