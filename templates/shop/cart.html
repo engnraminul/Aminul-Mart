@@ -53,11 +53,15 @@
 											<td class="price-col">{{cart.variant}}</td>
                       <td class="price-col">{{cart.color}}</td>
                       <td class="price-col">${{cart.item.product_price}}</td>
-											<td class="quantity-col">
-                                                <div class="cart-product-quantity">
-                                                    <input type="number" class="form-control" value="{{cart.quantity}}" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .cart-product-quantity -->
-                                            </td>
+                      <td class="quantity-col">
+                        <div class="cart-product-quantity">
+                          <a class="mr-2" href="{% url 'Order:decrease_quantity' pk=cart.item.pk %}"><span class=" badge badge-light"><i class="las la-minus"></i></span></a>
+                            <span>{{ cart.quantity }}</span>
+                          <a class="mr-2" href="{% url 'Order:increase_quantity' pk=cart.item.pk %}"><span class=" badge badge-light"><i class="las la-plus"></i></i></span></a>
+
+
+                        </div><!-- End .cart-product-quantity -->
+                      </td>
 											<td class="total-col">${{cart.get_total_price}}</td>
 											<td class="remove-col"><a href="{% url 'Order:remove_from_cart' pk=cart.item.pk %}"><button class="btn-remove"><i class="icon-close"></i></button></td></a>
 

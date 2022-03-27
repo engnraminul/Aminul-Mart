@@ -62,3 +62,42 @@ def remove_from_cart(request, pk):
             return redirect('Order:cart')
     else:
         return redirect('Order:cart')
+
+
+def increase_quantity(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    order_qs = CartToOrder.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchased=False)[0]
+            if order_item.quantity >= 1:
+                order_item.quantity += 1
+                order_item.save()
+                return redirect('Order:cart')
+            else:
+                return redirect('Store:home')
+        else:
+            return redirect('Shop:home')
+    else:
+        return redirect('Shop:home')
+
+def decrease_quantity(request, pk):
+    item = get_object_or_404(Product, pk=pk)
+    order_qs = CartToOrder.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.orderitems.filter(item=item).exists():
+            order_item = Cart.objects.filter(item=item, user=request.user, purchased=False)[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+                return redirect('Order:cart')
+            else:
+                order.orderitems.remove(order_item)
+                order_item.delete()
+                return redirect('Shop:home')
+        else:
+            return redirect('Shop:home')
+    else:
+        return redirect('Shop:home')
