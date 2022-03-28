@@ -52,7 +52,15 @@
 											</td>
 											<td class="price-col">{{cart.variant}}</td>
                       <td class="price-col">{{cart.color}}</td>
-                      <td class="price-col">${{cart.item.product_price}}</td>
+
+                      <td class="price-col">
+                        {% if cart.single_variation_price %}
+                          ${{cart.single_variation_price}}
+                        {% else %}
+                          ${{cart.item.product_price}}
+                        {% endif %}
+                    </td>
+
                       <td class="quantity-col">
                         <div class="cart-product-quantity">
                           <a class="mr-2" href="{% url 'Order:decrease_quantity' pk=cart.item.pk %}"><span class=" badge badge-light"><i class="las la-minus"></i></span></a>

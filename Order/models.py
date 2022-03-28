@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.conf import settings
-from Shop.models import Product
+from Shop.models import Product, VariationValue
 
 
 class Cart(models.Model):
@@ -22,6 +22,47 @@ class Cart(models.Model):
         total = self.item.product_price * self.quantity
         float_total_price = format(total, '0.2f')
         return float_total_price
+
+
+    def single_variation_price(self):
+        variants = VariationValue.objects.filter(variation='variant', product=self.item)
+        colors = VariationValue.objects.filter(variation='color',  product=self.item)
+        for variant in variants:
+            if colors.exists():
+                for color in colors:
+                    if color.name == self.color:
+                        color_price = color.price
+                if variant.name == self.variant:
+                    total = variant.price + color_price
+                    net_total = tatal
+                    float_total = format(net_total, '0.2f')
+                    return float_total
+            else:
+                if variant.name == self.variant:
+                    total = variant.price
+                    float_total = format(total, '0.2f')
+                    return float_total
+
+    def variation_total(self):
+        variants = VariationValue.objects.filter(variation='variant', product=self.item)
+        colors = VariationValue.objects.filter(variation='color',  product=self.item)
+        for variant in variants:
+            if colors.exists():
+                for color in colors:
+                    if color.name == self.color:
+                        color_price = color.price
+                        color_quantity_price = color_price * self.quantity
+                if variant.name == self.variant:
+                    total = variant.price * self.quantity
+                    net_total = total + color_quantity_price
+                    float_total = format(net_total, '0.2f')
+                    return float_total
+            else:
+                if variant.name == self.variant:
+                    total = variant.price * self.quantity
+                    float_total = format(total, '0.2f')
+                    return float_total
+
 
 
 class CartToOrder(models.Model):
