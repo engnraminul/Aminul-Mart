@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'Login',
     'Shop',
     'Order',
+    'coupon',
 ]
 
 CRISPY_TEMPLATE_PACK = 'uni_form'

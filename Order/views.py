@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from Shop.models import Product
 from Order.models import Cart, CartToOrder
+
+from coupon.forms import CouponForm
+from coupon.models import Coupon
+from django.utils import timezone
 # Create your views here.
 
 def add_to_cart(request, pk):
@@ -39,11 +43,34 @@ def add_to_cart(request, pk):
 def cart_view(request):
     carts = Cart.objects.filter(user=request.user, purchased=False)
     orders = CartToOrder.objects.filter(user=request.user, ordered=False)
+    code=""
+    total_price_with_discount=0
     if carts.exists() and orders.exists():
         order = orders[0]
+        coupon_form = CouponForm(request.POST)
+        if coupon_form.is_valid():
+
+            current_time = timezone.now()
+            code = coupon_form.cleaned_data.get('code')
+            coupon_object = Coupon.objects.get(code=code, active_status=True)
+            if coupon_object.valid_to >= current_time:
+                get_discount = (coupon_object.discount / 100) * order.get_totals_price()
+                total_price_with_discount = order.get_totals_price() - get_discount
+                request.session['discount_total'] = total_price_with_discount
+                request.session['coupon_code'] = code
+                return redirect('Order:cart')
+            else:
+                coupon_object.active_status = False
+                coupon_object.save()
+        
+        total_price_with_discount = request.session.get('discount_total')
+        coupon_code = request.session.get('coupon_code')
         context = {
             'carts': carts,
             'order': order,
+            'coupon_form': coupon_form,
+            'coupon_code': coupon_code,
+            'total_price_with_discount': total_price_with_discount,
         }
         return render(request, 'Shop/cart.html', context)
 
