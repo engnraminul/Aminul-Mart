@@ -70,7 +70,13 @@
 
                         </div><!-- End .cart-product-quantity -->
                       </td>
-											<td class="total-col">${{cart.get_total_price}}</td>
+											<td class="total-col">
+                        {% if cart.variation_total %}
+                          ${{cart.variation_total}}
+                        {% else %}
+                          ${{cart.get_total_price}}
+                        {% endif %}
+                      </td>
 											<td class="remove-col"><a href="{% url 'Order:remove_from_cart' pk=cart.item.pk %}"><button class="btn-remove"><i class="icon-close"></i></button></td></a>
 
 										</tr>

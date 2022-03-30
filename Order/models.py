@@ -27,14 +27,15 @@ class Cart(models.Model):
     def single_variation_price(self):
         variants = VariationValue.objects.filter(variation='variant', product=self.item)
         colors = VariationValue.objects.filter(variation='color',  product=self.item)
+        colors_price=0
         for variant in variants:
             if colors.exists():
                 for color in colors:
                     if color.name == self.color:
-                        color_price = color.price
+                        colors_price = color.price
                 if variant.name == self.variant:
-                    total = variant.price + color_price
-                    net_total = tatal
+                    total = variant.price + colors_price
+                    net_total = total
                     float_total = format(net_total, '0.2f')
                     return float_total
             else:
@@ -76,5 +77,10 @@ class CartToOrder(models.Model):
     def get_totals_price(self):
         total=0
         for order_item in self.orderitems.all():
-            total +=float(order_item.get_total_price())
+            if order_item.variation_total():
+                total +=float(order_item.variation_total())
+            elif order_item.single_variation_price():
+                total +=float(order_item.single_variation_price())
+            else:
+                total +=float(order_item.get_total_price())
         return total
