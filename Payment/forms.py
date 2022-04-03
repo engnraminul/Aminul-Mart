@@ -1,7 +1,8 @@
 from django import forms
-form Payment.models import BillingAddress
+from Payment.models import BillingAddress
+from django.db.models import fields
 
 class BillingAddressForm(forms.ModelForm):
     class Meta:
         model = BillingAddress
-        fiels = ['name', 'address', 'city', 'country', 'zipcode', 'phone']
+        fields = ['name','address','city','country','zipcode','phone']

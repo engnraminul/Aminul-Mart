@@ -14,8 +14,14 @@ class CheckoutView(TemplateView):
         saved_address = saved_address[0]
         form =BillingAddressForm(instance=saved_address)
 
+        order_qs = CartToOrder.objects.filter(user=request.user, ordered=False)
+        order_item = order_qs[0].orderitems.all()
+        order_totals = order_qs[0].get_totals_price()
+
         context = {
             'billingaddress': form,
+            'order_item': order_item,
+            'order_totals': order_totals,
         }
 
         return render(request, 'shop/checkout.html', context)
