@@ -9,7 +9,7 @@ def cart_view(user):
     if cart.exists():
         return cart
     else:
-        return ValuError("You don't have any cart!")
+        return cart
 
 @register.filter
 def cart_total(user):

@@ -12,7 +12,7 @@ class BillingAddress(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return f"{user.full_name}'s address"
+        return f"{self.name}'s address"
 
 
     def is_fully_filled(self):
