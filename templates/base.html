@@ -7,6 +7,7 @@
     {% load category %}
     {% load static %}
     {% load cart_product %}
+    {% load logo %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,11 +17,11 @@
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/icons/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static '{{request.user|favicon}}' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static '{{request.user|favicon}}' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static '{{request.user|icon}}' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static '{{request.user|icon}}' %}">
     <link rel="manifest" href="{% static 'assets/images/icons/site.html' %}">
-    <link rel="mask-icon" href="{% static '{{request.user|favicon}}' %}" color="#666666">
-    <link rel="shortcut icon" href="{% static '{{request.user|favicon}}' %}">
+    <link rel="mask-icon" href="{% static '{{request.user|icon}}' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static '{{request.user|icon}}' %}">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
@@ -94,7 +95,7 @@
                         </button>
 
                         <a href="{% url 'Shop:home' %}" class="logo">
-                            <img src="assets/images/demos/demo-4/logo.png" alt="Molla Logo" width="105" height="25">
+                            <img src="{{ request.user|logo }}" alt="Molla Logo" width="105" height="25">
                         </a>
                     </div><!-- End .header-left -->
 

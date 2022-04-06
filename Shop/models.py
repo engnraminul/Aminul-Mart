@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.conf import settings
 # Create your models here.
 
 class Category(models.Model):
@@ -98,3 +99,21 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.product.product_name
+
+class Logo(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    logo = models.ImageField(upload_to='logo')
+    active_logo = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.logo)
+
+class FavIcon(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    icon = models.ImageField(upload_to='logo')
+    active_icon = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.icon)
