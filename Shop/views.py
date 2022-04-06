@@ -1,13 +1,18 @@
 from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
-from Shop.models import Category, Product, ProductImageGallery
+from Shop.models import Category, Product, ProductImageGallery, Banner
 
 
 class ProductList(ListView):
     model = Product
     template_name = 'shop/home.html'
     context_object_name = 'products'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['banners'] = Banner.objects.filter(banner_active=True).order_by('-id')[0:2]
+        return context
 
 #product details function based
 

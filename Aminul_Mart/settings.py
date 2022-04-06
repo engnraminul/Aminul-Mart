@@ -139,3 +139,7 @@ AUTH_USER_MODEL = 'Login.User'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STORE_ID = 'aminu622c98687ddb4'
+STORE_PASS = 'aminu622c98687ddb4@ssl'
