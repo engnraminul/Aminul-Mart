@@ -7,6 +7,10 @@ from Login.forms import RegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
+from Order.models import Cart, CartToOrder
+from Payment.models import BillingAddress
+from Login.models import Profile
+from django.views.generic import TemplateView
 #registation function
 def register(request):
     if request.user.is_authenticated:
@@ -39,3 +43,14 @@ def user_login(request):
             else:
                 return HttpResponse('User name or password incorrect!')
     return render(request, 'login/login.html')
+
+
+
+class ProfileView(TemplateView):
+    def get(self, request, *args, **kwargs):
+
+        return render(request, 'profile.html')
+
+
+    def post(self, request, *args, **kwargs):
+        pass
