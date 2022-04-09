@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from Login import models
 
-from Login.forms import RegistrationForm
+from Login.forms import RegistrationForm, ProfileForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
@@ -52,9 +52,14 @@ class ProfileView(TemplateView):
         orders = CartToOrder.objects.filter(user = request.user, ordered=True)
         billingaddress = BillingAddress.objects.get(user=request.user)
         billingaddressform = BillingAddressForm(instance=billingaddress)
+
+        profile_obj = Profile.objects.get(user=request.user)
+        profile_form = ProfileForm(instance=profile_obj)
+
         context = {
             'orders': orders,
-            'billingaddress': billingaddressform
+            'billingaddress': billingaddressform,
+            'profile_form': profile_form,
         }
         return render(request, 'login/profile.html', context)
 
@@ -63,6 +68,11 @@ class ProfileView(TemplateView):
         if request.method == 'POST' or request.method =='pot':
             billingaddress = BillingAddress.objects.get(user=request.user)
             billingaddressform = BillingAddressForm(request.POST, instance=billingaddress)
-            if billingaddressform.is_valid():
+
+            profile_obj = Profile.objects.get(user=request.user)
+            profile_form = ProfileForm(request.POST, instance=profile_obj)
+
+            if billingaddressform.is_valid() or ProfileForm.is_valid():
                 billingaddressform.save()
+                profile_form.save()
                 return redirect('Login:profile')
