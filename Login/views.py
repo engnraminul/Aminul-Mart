@@ -48,8 +48,11 @@ def user_login(request):
 
 class ProfileView(TemplateView):
     def get(self, request, *args, **kwargs):
-
-        return render(request, 'profile.html')
+        orders = CartToOrder.objects.filter(user = request.user, ordered=True)
+        context = {
+            'orders': orders,
+        }
+        return render(request, 'login/profile.html', context)
 
 
     def post(self, request, *args, **kwargs):
