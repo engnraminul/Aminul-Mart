@@ -11,6 +11,7 @@ from Order.models import Cart, CartToOrder
 from Payment.models import BillingAddress
 from Login.models import Profile
 from django.views.generic import TemplateView
+from Payment.forms import BillingAddressForm
 #registation function
 def register(request):
     if request.user.is_authenticated:
@@ -49,11 +50,19 @@ def user_login(request):
 class ProfileView(TemplateView):
     def get(self, request, *args, **kwargs):
         orders = CartToOrder.objects.filter(user = request.user, ordered=True)
+        billingaddress = BillingAddress.objects.get(user=request.user)
+        billingaddressform = BillingAddressForm(instance=billingaddress)
         context = {
             'orders': orders,
+            'billingaddress': billingaddressform
         }
         return render(request, 'login/profile.html', context)
 
 
     def post(self, request, *args, **kwargs):
-        pass
+        if request.method == 'POST' or request.method =='pot':
+            billingaddress = BillingAddress.objects.get(user=request.user)
+            billingaddressform = BillingAddressForm(request.POST, instance=billingaddress)
+            if billingaddressform.is_valid():
+                billingaddressform.save()
+                return redirect('Login:profile')

@@ -73,7 +73,7 @@
 												<th scope="row">{{ order.id }}</th>
 												<td>
 												{% for order_item in order.orderitems.all %}
-													{{ order_item }}
+													{{ order_item }},
 												{% endfor %}
 
 												</td>
@@ -106,6 +106,7 @@
 															{% csrf_token %}
 															{{ billingaddress }}
 															<br>
+                              <br>
 															<input type='submit' value="Save Address">
 														</form>
 														<a href="#">Edit <i class="icon-edit"></i></a></p>
