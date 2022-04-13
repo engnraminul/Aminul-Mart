@@ -134,7 +134,7 @@ LOGIN_URL = '/account/signin/'
 
 #Custom user model
 AUTH_USER_MODEL = 'Login.User'
-AUTHENTICATION_BACKENDS = ['Login.custom_login.UsernameOrEmail']
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

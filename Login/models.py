@@ -26,16 +26,26 @@ class MyUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)  
+        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('user_type', 'developer')
+        extra_fields.setdefault('is_verify', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError('SuperUser must have is_staff=True')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('SuperUser must have is_superuser=True')
+        if extra_fields.get('is_active') is not True:
+            raise ValueError('SuperUser must have is_active=True')
+        if extra_fields.get('is_verify') is not True:
+            raise ValueError('SuperUser must have is_verify=True')
         return self._create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    USER_TYPE = (
+        ('visitor', 'visitor'),
+        ('developer', 'developer'),
+    )
     email = models.EmailField(unique=True, null=False)
     is_staff = models.BooleanField(
         gettext_lazy('staff Status'),
@@ -51,6 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     USERNAME_FIELD = 'email'
+    user_type = models.CharField(max_length=50, choices=USER_TYPE, default=USER_TYPE[0])
+    is_superuser = models.BooleanField(default=False)
     object = MyUserManager()
 
     def __str__(self):
