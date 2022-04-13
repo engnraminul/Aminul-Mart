@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'Order',
     'coupon',
     'Payment',
+    'Notification',
 
 ]
 
