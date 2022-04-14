@@ -5,6 +5,8 @@ from Order.models import Cart, CartToOrder
 from coupon.forms import CouponForm
 from coupon.models import Coupon
 from django.utils import timezone
+
+from Notification.notifications import SendNotification
 # Create your views here.
 
 def add_to_cart(request, pk):
@@ -26,16 +28,22 @@ def add_to_cart(request, pk):
                 order_item[0].variant=variant
                 order_item[0].color=color
                 order_item[0].save()
+
+                message = f"Add to cart"
+                SendNotification(request.user, message)
                 return redirect('Shop:home')
             else:
+                variant = request.POST.get('variant')
+                color = request.POST.get('color')
+                order_item[0].variant=variant
+                order_item[0].color=color
                 order.orderitems.add(order_item[0])
+
+                message = f"quantity update"
+                SendNotification(request.user, message)
+
                 return redirect('Shop:home')
         else:
-            variant = request.POST.get('variant')
-            color = request.POST.get('color')
-            order_item[0].variant=variant
-            order_item[0].color=color
-
             order = CartToOrder(user=request.user)
             order.save()
             order.orderitems.add(order_item[0])
