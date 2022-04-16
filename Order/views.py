@@ -29,8 +29,6 @@ def add_to_cart(request, pk):
                 order_item[0].color=color
                 order_item[0].save()
 
-                message = f"Add to cart"
-                SendNotification(request.user, message)
                 return redirect('Shop:home')
             else:
                 variant = request.POST.get('variant')
@@ -38,9 +36,6 @@ def add_to_cart(request, pk):
                 order_item[0].variant=variant
                 order_item[0].color=color
                 order.orderitems.add(order_item[0])
-
-                message = f"quantity update"
-                SendNotification(request.user, message)
 
                 return redirect('Shop:home')
         else:

@@ -6,6 +6,6 @@ class SendNotification:
         self.message = message
 
         user_obj = UserObj.objects.get(user=self.user)
-        notification = Notification.objects.get(message=self.message, is_read=False)
+        notification = Notification.objects.create(message=self.message, is_read=False)
         notification.userobj.add(user_obj)
         notification.save()
