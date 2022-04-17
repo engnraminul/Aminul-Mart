@@ -18,7 +18,7 @@ class UserObj(models.Model):
     def create_notification_object(sender, instance, created, **kwargs):
         if created:
             UserObj.objects.create(user=instance)
-        instance.userObj.save()
+            instance.UserObj.save()
 
 class Notification(models.Model):
     userobj = models.ManyToManyField(UserObj, blank=True)
