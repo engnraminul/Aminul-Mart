@@ -54,3 +54,35 @@ class AddNewProduct(TemplateView):
                 return redirect('Shop:home')
         else:
             return redirect('Shop:home')
+
+class ProductUpdate(TemplateView):
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        form = ProductForm(instance=product)
+        context = {
+            'form':form
+        }
+        return render(request, 'dashboard/product_form.html', context)
+
+    def post(self, request, slug, *args, **kwargs):
+        if request.user.user_type =='developer':
+            if request.method =='post' or request.method == 'POST':
+                product = Product.objects.get(slug=slug)
+                form = ProductForm(request.POST, request.FILES, instance=product)
+                if form.is_valid():
+                    product = form.save(commit=False)
+                    product_slug = product.product_name.replace(' ', '-')
+                    product.slug = product_slug.lower()
+                    product.save()
+                    return redirect('dashboard:product_list')
+            else:
+                return redirect('Shop:home')
+        else:
+            return redirect('Shop:home')
+
+
+class ProductDelete(TemplateView):
+    def get(self, request, slug, *args, **kwargs):
+        product = Product.objects.get(slug=slug)
+        product.delete()
+        return redirect('dashboard:product_list')
