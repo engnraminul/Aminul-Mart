@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
-from Shop.models import Product
-from Shop.forms import ProductForm
+from Shop.models import Product, Brand, Category
+from Shop.forms import ProductForm, CategoryForm
 
 class DashboardIndex (TemplateView):
     def get(self, request, *args, **kwargs):
-        return render(request, 'dashboard/index.html')
+        return render(request, 'dashboard/category_list.html')
 
     def post(self, request, *args, **kwargs):
         pass
@@ -86,3 +86,36 @@ class ProductDelete(TemplateView):
         product = Product.objects.get(slug=slug)
         product.delete()
         return redirect('dashboard:product_list')
+
+
+class CategoryList(ListView):
+    model = Category
+    template_name = 'dashboard/category_list.html'
+    context_object_name = 'categories'
+
+class AddNewCategory(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.user_type == 'developer':
+                form = CategoryForm()
+                context = {
+                    'form': form
+                }
+                return render(request, 'dashboard/category_form.html', context)
+            else:
+                return redirect('Shop:home')
+            return redirect('account:profile')
+        else:
+            return redirect('Shop:home')
+
+    def post(self, request, *args, **kwargs):
+        if request.user.user_type =='developer':
+            if request.method =='post' or request.method == 'POST':
+                form = CategoryForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('dashboard:product_list')
+            else:
+                return redirect('Shop:home')
+        else:
+            return redirect('Shop:home')

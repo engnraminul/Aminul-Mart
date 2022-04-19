@@ -20,6 +20,7 @@ class Category(models.Model):
 
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50, blank=False, null=False)
+    brand_image = models.ImageField(upload_to='brand', blank=True, null=True)
     brand_category = models.ForeignKey('Category', related_name='brand_category', on_delete=models.CASCADE, blank=True, null=True)
     brand_created = models.DateTimeField(auto_now_add=True)
 

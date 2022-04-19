@@ -7,3 +7,9 @@ class ProductForm(ModelForm):
         model = Product
         fields = ('__all__')
         exclude = ('slug',)
+
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = ('__all__')
+        
