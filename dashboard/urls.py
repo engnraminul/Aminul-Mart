@@ -13,6 +13,8 @@ urlpatterns = [
     path('add-new-category/', views.AddNewCategory.as_view(), name= 'add_new_category'),
     path('category-update/<int:pk>/', views.CategoryUpdate.as_view(), name='category_update'),
     path('category-delete/<int:pk>/', views.CategoryDelete.as_view(), name='category_delete'),
+    path('brand/', views.BrandList.as_view(), name='brand_list'),
+    path('brand-update/<int:pk>/', views.BrandUpdate.as_view(), name='brand_update'),
 
 
 ]

@@ -9,7 +9,7 @@
         <div class="overlay"></div>
         <div class="search-overlay"></div>
 
-        
+
         {% include 'dashboard/sidebar.html' %}
 
         <!--  BEGIN CONTENT AREA  -->
@@ -23,8 +23,8 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Input Text</h4>
-                                        </div>                 
+                                            <h4>Category</h4>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="widget-content widget-content-area">
@@ -35,18 +35,18 @@
                                                 <div class="form-group">
                                                     {% csrf_token %}
                                                     {{ form.as_p }}
-                                                    
+
                                                     <input type="submit" name="txt" class="mt-4 btn btn-primary">
                                                 </div>
                                             </form>
-                                        </div>                                        
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
 
-                        
+
                     </div>
 
                 </div>
@@ -54,5 +54,5 @@
         </div>
         <!--  END CONTENT AREA  -->
     </div>
- 
+
     {% endblock body %}

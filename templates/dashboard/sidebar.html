@@ -1,6 +1,6 @@
 <!--  BEGIN SIDEBAR  -->
 <div class="sidebar-wrapper sidebar-theme">
-            
+
     <nav id="sidebar">
 
         <ul class="navbar-nav theme-brand flex-row  text-center">
@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="#" class="nav-link"> CLEVERANGE </a>
+                <a href="#" class="nav-link"> Aminul-Mart </a>
             </li>
         </ul>
 
@@ -31,12 +31,15 @@
                 </a>
                 <ul class="collapse submenu recent-submenu mini-recent-submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
                     <li class="active">
-                        <a href="#"> General </a>
+                        <a href={% url 'dashboard:product_list' %}> Product </a>
                     </li>
                     <li>
-                        <a href="#"> Index </a>
+                        <a href={% url 'dashboard:category_list' %}> Category </a>
                     </li>
-                    
+                    <li>
+                        <a href={% url 'dashboard:brand_list' %}> Brand </a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -51,7 +54,7 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
-                
+
 
                     <li>
                         <a href="#"> My Courses </a>
@@ -61,7 +64,7 @@
                     <li>
                         <a href="#"> All Courses  </a>
                     </li>
-                    
+
                 </ul>
             </li>
 
@@ -99,9 +102,9 @@
                 </a>
             </li>
 
-            
 
-            
+
+
 
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>Cleverange</span></div>
@@ -127,10 +130,10 @@
                 </a>
             </li>
 
-            
+
 
         </ul>
-        
+
     </nav>
 
 </div>

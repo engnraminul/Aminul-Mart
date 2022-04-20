@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 
 from Shop.models import Product, Brand, Category
-from Shop.forms import ProductForm, CategoryForm
+from Shop.forms import ProductForm, CategoryForm, BrandForm
 
 class DashboardIndex (TemplateView):
     def get(self, request, *args, **kwargs):
@@ -144,3 +144,30 @@ class CategoryDelete(TemplateView):
         category = Category.objects.get(pk=pk)
         category.delete()
         return redirect('dashboard:category_list')
+
+
+class BrandList(ListView):
+    model = Brand
+    template_name = 'dashboard/brand_list.html'
+    context_object_name = 'brands'
+
+class BrandUpdate(TemplateView):
+    def get(self, request, pk, *args, **kwargs):
+        brand = Brand.objects.get(pk=pk)
+        form = BrandForm(instance=brand)
+        context = {
+            'form':form
+        }
+        return render(request, 'dashboard/brand_form.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        brand = Brand.objects.get(pk=pk)
+        form = BrandForm(request.POST, request.FILES, instance=brand)
+        context = {
+            'form':form
+        }
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:brand_list')
+        else:
+            return render(request, 'dashboard/brand_form.html', context)
