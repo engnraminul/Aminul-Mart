@@ -114,8 +114,33 @@ class AddNewCategory(TemplateView):
                 form = CategoryForm(request.POST, request.FILES)
                 if form.is_valid():
                     form.save()
-                    return redirect('dashboard:product_list')
+                    return redirect('dashboard:category_list')
             else:
-                return redirect('Shop:home')
+                return redirect('dashboard:category_list')
         else:
-            return redirect('Shop:home')
+            return redirect('dashboard:category_list')
+
+
+class CategoryUpdate(TemplateView):
+    def get(self, request, pk, *args, **kwargs):
+        category = Category.objects.get(id=pk)
+        form = CategoryForm(instance=category)
+        context = {
+            'form': form
+        }
+        return render(request, 'dashboard/category_form.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        category = Category.objects.get(id=pk)
+        form = CategoryForm(request.POST, request.FILES, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard:category_list')
+        else:
+            return redirect('dashboard:category_list')
+
+class CategoryDelete(TemplateView):
+    def get(self, request, pk, *args, **kwargs):
+        category = Category.objects.get(pk=pk)
+        category.delete()
+        return redirect('dashboard:category_list')
