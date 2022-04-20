@@ -171,3 +171,32 @@ class BrandUpdate(TemplateView):
             return redirect('dashboard:brand_list')
         else:
             return render(request, 'dashboard/brand_form.html', context)
+
+class AddNewBrand(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.user_type == 'developer':
+                form = BrandForm()
+                context = {
+                    'form': form
+                }
+                return render(request, 'dashboard/brand_form.html', context)
+            else:
+                return redirect('dashboard:brand_list')
+        else:
+            return redirect('dashboard:brand_list')
+
+
+    def post(self, request, *args, **kwargs):
+        if request.user.user_type == 'developer':
+            if request.method == 'POST' or request.method == 'post':
+                form = BrandForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('dashboard:brand_list')
+                else:
+                    return redirect('dashboard:brand_form')
+            else:
+                return redirect('dashboard:brand_form')
+        else:
+            return redirect('dashboard:brand_form')
