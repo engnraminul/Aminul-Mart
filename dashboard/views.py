@@ -6,7 +6,7 @@ from Shop.forms import ProductForm, CategoryForm, BrandForm
 
 class DashboardIndex (TemplateView):
     def get(self, request, *args, **kwargs):
-        return render(request, 'dashboard/category_list.html')
+        return render(request, 'dashboard/index.html')
 
     def post(self, request, *args, **kwargs):
         pass

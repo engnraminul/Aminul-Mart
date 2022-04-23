@@ -1,4 +1,5 @@
 from django.forms.models import ModelForm
+
 from Shop.models import Category, Brand, Product, VariationValue, Logo, Banner, FavIcon
 
 
@@ -7,6 +8,9 @@ class ProductForm(ModelForm):
         model = Product
         fields = ('__all__')
         exclude = ('slug',)
+
+
+
 
 class CategoryForm(ModelForm):
     class Meta:
