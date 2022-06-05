@@ -1,16 +1,7 @@
 # Aminul-Mart
 Multi vendor ecommerce web project
 
-#Features
-1. Login With Email Address
-2. Two Type User- Visitor and Developer
-3. Category and Subcategory System
-4. Brand ForeignKey with Category
-5. Product ForeignKey with Brand
-6. Add Product in Card
-7. Card Page in Show Total Price
-8. Order with Cash on Delevery
-9. Edit
+# Features
 <ol>
   <li>Login With Email Address</li>
   <li>Two Type User- Visitor and Developer</li>

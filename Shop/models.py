@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.conf import settings
+from django.utils.safestring import mark_safe
 # Create your models here.
 
 class Category(models.Model):
@@ -59,6 +60,7 @@ class Product(models.Model):
 
     def product_url(self):
         return reverse('Shop:product_details', kwargs={'slug':self.slug})
+
 
 
 class ProductImageGallery(models.Model):
